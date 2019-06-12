@@ -68,13 +68,24 @@ class PolarTurtle(TurtlePro):
         '''
         self.write_text(text, 0, self.max_radius + 5, size=16)
 
-    def draw_ark(self, init_radian, end_radian, radius, fast=False) -> None:
+    def draw_ark(self, init_radian, end_radian, radius, speed='detailed') -> None:
         '''Draw an ark (part of a circle'''
         self._check_radius(radius)
         turtle.penup()
         turtle.goto(*self.circle_xy(init_radian, radius))
         turtle.pendown()
-        num_segments = 40 if not fast else 3
+        if speed == 'superfast':
+            # skip num_segments and associated loop below by just using 1 segment
+            turtle.goto(*self.circle_xy(end_radian, radius))
+            return
+        elif speed == 'fast':
+            num_segments = 5
+        elif speed == 'detailed':
+            num_segments = 40
+        else:
+            print('Incorrect speed kwarg in PolarTurtle.draw_ark().')
+            print('Please specify "detailed", "fast", or "superfast"')
+
         for angle in range(1, num_segments + 1):
             turtle.goto(*self.circle_xy(init_radian + (end_radian - init_radian) * (angle / num_segments), radius))
 
