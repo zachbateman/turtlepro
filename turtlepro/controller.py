@@ -19,6 +19,7 @@ class TurtlePro():
         turtle.title('TurtlePro')
         turtle.hideturtle()
         turtle.speed(0)  # fastest speed
+        turtle.setundobuffer(None)  # disable undobuffer to improve performance
 
         self.max_dist_from_center = 0
 
