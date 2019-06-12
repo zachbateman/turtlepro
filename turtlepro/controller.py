@@ -72,7 +72,7 @@ class PolarTurtle(TurtlePro):
         '''Draw an ark (part of a circle'''
         self._check_radius(radius)
         turtle.penup()
-        turtle.goto(*self.circle_xy, init_radian, end_radian, radius)
+        turtle.goto(*self.circle_xy(init_radian, radius))
         turtle.pendown()
         num_segments = 40 if not fast else 3
         for angle in range(1, num_segments + 1):
