@@ -47,8 +47,8 @@ class TurtlePro():
 
 class PolarTurtle(TurtlePro):
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
         self.max_radius = 0
 
 
