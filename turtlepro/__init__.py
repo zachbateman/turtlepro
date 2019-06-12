@@ -1,1 +1,1 @@
-from .controller import TurtlePro
+from .controller import TurtlePro, PolarTurtle
