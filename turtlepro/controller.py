@@ -8,13 +8,17 @@ import math
 
 class TurtlePro():
 
-    def __init__(self, linesize=3, color=(0.2, 0.3, 0.5)) -> None:
+    def __init__(self, linesize=3, color=(0.2, 0.3, 0.5), canvas=None) -> None:
         self.default_linesize = linesize
+
+        if canvas:  # if an existing tkinter canvas is provided, use it
+            turtle.RawTurtle(canvas)
+
         turtle.pensize(linesize)
-        turtle.title('TurtlePro')
         turtle.pencolor(*color)
+        turtle.title('TurtlePro')
         turtle.hideturtle()
-        turtle.speed(0)
+        turtle.speed(0)  # fastest speed
 
         self.max_dist_from_center = 0
 
@@ -22,6 +26,10 @@ class TurtlePro():
     def delay_refresh_until_end(self) -> None:
         print('Delaying screen refresh until turtle is done drawing... Please wait.')
         turtle.tracer(0, 0)
+
+    def get_canvas(self):
+        '''Return the tkinter canvas used by this turtle'''
+        return turtle.getscreen().getcanvas()
 
     def write_text(self, text, x=0, y=0, font='Arial', size=16) -> None:
         turtle.penup()
@@ -54,7 +62,8 @@ def PolarTurtle(TurtlePro):
             self.max_radius = radius
 
     def set_title(self, text) -> None:
-        '''Put a title at the top of the drawing.  Do this AT THE END
+        '''
+        Put a title at the top of the drawing.  Do this AT THE END
         OF DRAWING so that TurtlePro knows how far to go!
         '''
         self.write_text(text, 0, self.max_radius + 5, size=16)
@@ -65,7 +74,7 @@ def PolarTurtle(TurtlePro):
         turtle.penup()
         turtle.goto(*self.circle_xy, init_radian, end_radian, radius)
         turtle.pendown()
-        num_segments=40 if not fast else 3
+        num_segments = 40 if not fast else 3
         for angle in range(1, num_segments + 1):
             turtle.goto(*self.circle_xy(init_radian + (end_radian - init_radian) * (angle / num_segments), radius))
 
