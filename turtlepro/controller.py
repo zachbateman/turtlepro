@@ -45,7 +45,7 @@ class TurtlePro():
 
 
 
-def PolarTurtle(TurtlePro):
+class PolarTurtle(TurtlePro):
 
     def __init__(self) -> None:
         super().__init__()
