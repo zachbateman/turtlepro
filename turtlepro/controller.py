@@ -62,12 +62,15 @@ class PolarTurtle(TurtlePro):
         if radius > self.max_radius:
             self.max_radius = radius
 
-    def set_title(self, text) -> None:
+    def set_title(self, text, force_radius=None, size=16) -> None:
         '''
         Put a title at the top of the drawing.  Do this AT THE END
         OF DRAWING so that TurtlePro knows how far to go!
         '''
-        self.write_text(text, 0, self.max_radius + 5, size=16)
+        if force_radius is None:
+            self.write_text(text, 0, self.max_radius + 5, size=size)
+        else:
+            self.write_text(text, 0, force_radius, size=size)
 
     def draw_ark(self, init_radian, end_radian, radius, speed='detailed') -> None:
         '''Draw an ark (part of a circle)'''
