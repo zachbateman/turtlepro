@@ -102,3 +102,8 @@ class PolarTurtle(TurtlePro):
         turtle.goto(*self.circle_xy(angle, radius_1))
         turtle.pendown()
         turtle.goto(*self.circle_xy(angle, radius_2))
+
+    def write_polartext(self, text, angle, radius, font='Arial', size=16) -> None:
+        '''Calculate x and y from angle and radius and than call cartesian write_text'''
+        x, y = self.circle_xy(angle, radius)
+        self.write_text(text, x=x, y=y, font=font, size=size)
