@@ -44,6 +44,27 @@ class TurtlePro():
         '''
         self.write_text(text, 0, self.max_dist_from_center + 5, size=16)
 
+    def draw_line(self, point1, point2) -> None:
+        '''
+        Draw a line from the first point to the second point.
+        '''
+        turtle.penup()
+        turtle.goto(point1)
+        turtle.pendown()
+        turtle.goto(point2)
+
+    def draw_lines(self, points) -> None:
+        '''
+        Draw lines through all given "points" (iterable).
+        '''
+        if len(points) < 2:
+            raise Exception('draw_lines() arg must have at least 2 points!')
+        turtle.penup()
+        turtle.goto(points.pop(0))
+        turtle.pendown()
+        while points:
+            turtle.goto(points.pop(0))
+
 
 
 class PolarTurtle(TurtlePro):
