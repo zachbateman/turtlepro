@@ -3,6 +3,7 @@ Python module implementing turtle-controlling classes.
 '''
 import turtle
 import math
+import tkinter as tk
 
 
 
@@ -22,6 +23,7 @@ class TurtlePro():
         turtle.setundobuffer(None)  # disable undobuffer to improve performance
 
         self.max_dist_from_center = 0
+        self.pan_and_zoomable()
 
 
     def delay_refresh_until_end(self) -> None:
@@ -43,6 +45,28 @@ class TurtlePro():
         OF DRAWING so that TurtlePro knows how far to go!
         '''
         self.write_text(text, 0, self.max_dist_from_center + 5, size=16)
+
+    def pan_and_zoomable(self) -> None:
+        # See: https://stackoverflow.com/questions/41656176/tkinter-canvas-zoom-move-pan/48137257
+        # for how to handle mouse events!!!
+        canvas = self.get_canvas()
+
+        def zoom(event):
+            amount = 0.95 if event.delta < 0 else 1.05
+            canvas.scale(tk.ALL, 0, 0, amount, amount)
+        canvas.bind('<MouseWheel>', zoom)
+
+        def pan(event):
+            canvas.scan_mark(event.x, event.y)
+            canvas.scan_dragto(event.x, event.y, gain=1)
+
+        def pan_start(event):
+            canvas.scan_mark(event.x, event.y)
+        canvas.bind('<ButtonPress-1>', pan_start)
+
+        def pan_move(event):
+            canvas.scan_dragto(event.x, event.y, gain=1)
+        canvas.bind('<B1-Motion>', pan_move)
 
     def draw_line(self, point1, point2) -> None:
         '''
